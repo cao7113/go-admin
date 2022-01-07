@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"github.com/iancoleman/strcase"
 	tmpl "html/template"
 	"net/url"
 	"regexp"
@@ -1436,7 +1437,8 @@ func (s *SystemTable) GetGenerateForm(ctx *context.Context) (generateTool Table)
 				for i, model := range columnsModel {
 					typeName := getType(model[typeField].(string))
 
-					headName[i] = strings.Title(model[fieldField].(string))
+					//headName[i] = strings.Title(model[fieldField].(string))
+					headName[i] = strcase.ToCamel(model[fieldField].(string))
 					fieldName[i] = model[fieldField].(string)
 					dbTypeList[i] = typeName
 					formTypeList[i] = form.GetFormTypeFromFieldType(db.DT(strings.ToUpper(typeName)),
