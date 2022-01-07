@@ -16,6 +16,7 @@ import (
 	"github.com/GoAdminGroup/go-admin/modules/db"
 	"github.com/GoAdminGroup/go-admin/modules/utils"
 	"github.com/GoAdminGroup/go-admin/template/types/form"
+	"github.com/iancoleman/strcase"
 )
 
 type Param struct {
@@ -443,7 +444,8 @@ func getFieldsFromConn(conn db.Connection, table, driver string) Fields {
 	for i, model := range columnsModel {
 		typeName := getType(model[typeField].(string))
 		fields[i] = Field{
-			Head:     strings.Title(model[fieldField].(string)),
+			//Head:     strings.Title(model[fieldField].(string)),
+			Head:     strcase.ToCamel(model[fieldField].(string)),
 			Name:     model[fieldField].(string),
 			DBType:   typeName,
 			CanAdd:   true,
